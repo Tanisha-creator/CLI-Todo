@@ -1,5 +1,6 @@
 # CLI-Todo
-A command-line (CLI) program that lets you manage your tasks.
+A command-line (CLI) program that lets you manage your tasks without leaving your keyboard and command line.
+You can run this in your own command line (run as adminitrator)
 
 Here's how it works:
 
