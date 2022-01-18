@@ -1,7 +1,11 @@
-//const { create } = require("domain");
+//Importing file system module to work on file system
 const fs = require("fs");
+
+// Accessing arguments
 const args = process.argv;
 //console.log(args);
+
+// Current working directory
 const cwd = args[1].slice(0,-7);
 //console.log(cwd);
 
@@ -17,6 +21,7 @@ if(fs.existsSync(cwd+'completed.txt') === false){
     createStream.end();
 }
 
+// Function to print the CLI usage
 const infoFunction = () =>{
     const usageText = `
     Usage :-
@@ -40,7 +45,8 @@ const listOfTasks = () =>{
     let filteredData = data.filter(function(value){
         return value !== '';
     });
-
+    
+    // If there is no task in task.txt
     if(filteredData.length ===0){
         console.log("There are no pending tasks!");
     }
@@ -54,15 +60,16 @@ const listOfTasks = () =>{
 const addTasks = () =>{
     const pr = args[3];
     const newTask = args[4];
+    
     if(newTask){
         let data =[];
+        // read the existing data
         const fileData = fs.readFileSync(cwd+'task.txt').toString();
-        
-        // write old tasks and new task in task.txt
+        // new task is added in task.txt with the previous tasks
         fs.writeFile(cwd+'task.txt',fileData + newTask + ' [' + pr +']' + '\n', 
         function (err){
             if(err) throw err;
-
+            
             console.log('Added task: "' + newTask + '" with priority '+ pr);
         });
     }
@@ -89,7 +96,7 @@ const deleteTask = () =>{
         }
         else{
             // Delete the task at deleteIndex
-            filteredData.splice(filteredData.length-deleteIndex,1);
+            filteredData.splice(deleteIndex-1,1);
             const newData = filteredData.join('\n');
             fs.writeFile(cwd+'task.txt', newData, function(err){
                 if(err) throw err;
@@ -122,7 +129,7 @@ const taskDone = () =>{
         }
         else { 
             // Removing the done task from task.txt
-            const deleted = filteredData.splice(filteredData.length - doneIndex, 1);
+            const deleted = filteredData.splice(doneIndex-1, 1);
             const newData = filteredData.join('\n');
             fs.writeFile(cwd + 'task.txt',newData,function(err) {
                     if (err) throw err;
@@ -207,5 +214,6 @@ switch (args[2]) {
     default:
         {
             infoFunction();
+            break;
         }
 }

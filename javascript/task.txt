@@ -1,1 +1,5 @@
-home [1]
+Studies [2]
+Assignment [3]
+Go to market [5]Hello world [10]
+Water the plants [1]
+Cinema [2]
